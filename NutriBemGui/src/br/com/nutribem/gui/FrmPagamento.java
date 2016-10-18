@@ -332,6 +332,7 @@ public class FrmPagamento extends javax.swing.JFrame {
         decrementarProdutoDoEstoque();
 
         //SALVANDO PAGAMENTO NO BD
+        pagamento.setColaborador(SessionUtil.getInstance().getColaborador());
         resultado = new Resultado();
         resultado = fachada.save(pagamento);
 

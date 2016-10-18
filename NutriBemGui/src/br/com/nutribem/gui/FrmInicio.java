@@ -67,6 +67,8 @@ public class FrmInicio extends javax.swing.JFrame {
         menuBarPDV = new javax.swing.JMenu();
         menuPDV = new javax.swing.JMenuItem();
         menuRelatorio = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
         MenuLojaBar = new javax.swing.JMenu();
         menuLoja = new javax.swing.JMenuItem();
 
@@ -146,6 +148,23 @@ public class FrmInicio extends javax.swing.JFrame {
         barMenu.add(menuBarPDV);
 
         menuRelatorio.setText("Relatórios");
+
+        jMenuItem1.setText("Vendas");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        menuRelatorio.add(jMenuItem1);
+
+        jMenuItem2.setText("Caixas");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        menuRelatorio.add(jMenuItem2);
+
         barMenu.add(menuRelatorio);
 
         MenuLojaBar.setText("Loja");
@@ -265,6 +284,21 @@ public class FrmInicio extends javax.swing.JFrame {
         frmVenda.setVisible(true);
     }//GEN-LAST:event_menuPDVActionPerformed
 
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        FrmRelatorioVendas frmRelatorioVendas = new FrmRelatorioVendas(this, true);
+        frmRelatorioVendas.setLocationRelativeTo(null);
+        frmRelatorioVendas.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        frmRelatorioVendas.setVisible(true);
+        
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        FrmRelatorioCaixas frmRelatorioCaixas = new FrmRelatorioCaixas(this, true);
+        frmRelatorioCaixas.setLocationRelativeTo(null);
+        frmRelatorioCaixas.setVisible(true);
+        
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -315,6 +349,8 @@ public class FrmInicio extends javax.swing.JFrame {
     private javax.swing.JMenu MenuLojaBar;
     private javax.swing.JMenu barCadastros;
     private javax.swing.JMenuBar barMenu;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenu menuBarPDV;
     private javax.swing.JMenuItem menuCategoria;
     private javax.swing.JMenuItem menuColaborador;

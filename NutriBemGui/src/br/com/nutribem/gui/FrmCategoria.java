@@ -239,11 +239,11 @@ public class FrmCategoria extends javax.swing.JDialog implements IForm{
 
         txtLocaliza.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         txtLocaliza.addInputMethodListener(new java.awt.event.InputMethodListener() {
-            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
-                txtLocalizaCaretPositionChanged(evt);
-            }
             public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
                 txtLocalizaInputMethodTextChanged(evt);
+            }
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
+                txtLocalizaCaretPositionChanged(evt);
             }
         });
 
@@ -455,6 +455,9 @@ public class FrmCategoria extends javax.swing.JDialog implements IForm{
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(FrmCategoria.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the dialog */

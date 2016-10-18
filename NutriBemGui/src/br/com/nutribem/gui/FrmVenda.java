@@ -23,7 +23,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import javax.swing.AbstractAction;
 import javax.swing.InputMap;
 import javax.swing.JComponent;
@@ -46,6 +49,7 @@ public class FrmVenda extends javax.swing.JFrame implements IForm {
     private List<ItemPedido> itens;
     private BigDecimal valorTotal;
     private Boolean podeFecharFrame;
+    private Map<String, Map<Integer, Integer>> mapEstoque = new HashMap<>();
 
     private Resultado resultado;
 
@@ -78,6 +82,9 @@ public class FrmVenda extends javax.swing.JFrame implements IForm {
 
     }
 
+    /**
+     * Metodo chamado ao fechar o frame
+     */
     private void fecharCaixa() {
 
         SessionUtil sessionUtil = SessionUtil.getInstance();
@@ -97,6 +104,11 @@ public class FrmVenda extends javax.swing.JFrame implements IForm {
         fachada.save(sessionUtil.getCaixaLoja());
     }
 
+    /**
+     * Metodo chamado ao iniciar o frame. retorna -1 se o valor passado para o 
+     * caixa for um valor invalido
+     * @return 
+     */
     private int inicializarCaixa() {
         SessionUtil sessionUtil = SessionUtil.getInstance();
 
@@ -108,11 +120,12 @@ public class FrmVenda extends javax.swing.JFrame implements IForm {
         //Solicitando o valor do caixa Funcionario
         BigDecimal temp = new BigDecimal("0.00");
         temp = sessionUtil.getCaixaLoja().getValor();
-        String valor = GuiUtil.getMoedaSemFormatacao(String.valueOf(JOptionPane.showInputDialog(null,
+        String valor = GuiUtil.getMoedaSemFormatacao(String.valueOf(JOptionPane.showInputDialog(
                 "Valor Atual: "
                 + GuiUtil.getMoedaFormatada(String.valueOf(temp))
-                + "\nTecle ENTER para Aceitar o valor Atual.")));
+                + "\nTecle ENTER para Aceitar o valor Atual.",GuiUtil.getMoedaFormatada(String.valueOf(temp)))));
 
+        
         valor = valor.replace(",", ".");
         int i = isDigit(valor);
 
@@ -174,6 +187,9 @@ public class FrmVenda extends javax.swing.JFrame implements IForm {
         return 0;
     }
 
+    /**
+     * Configurando as teclas de atalhos do FORM
+     */
     private void cadastrarTeclasDeAtalhos() {
         InputMap inputMap = this.getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
         inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_F1, 0), "RemoverItem");
@@ -255,21 +271,6 @@ public class FrmVenda extends javax.swing.JFrame implements IForm {
         });
     }
 
-    private void efetuarCalculoItem() {
-
-        BigDecimal valorUnitario = new BigDecimal(GuiUtil.getMoedaSemFormatacao(txtValorItem.getText()));
-        BigDecimal desconto = new BigDecimal(GuiUtil.getMoedaSemFormatacao(txtDesconto.getText()));
-        int quantidade = Integer.valueOf(txtQuantidade.getText());
-
-        BigDecimal temp = new BigDecimal(quantidade);
-        valorUnitario = valorUnitario.multiply(temp);
-
-        valorUnitario = valorUnitario.subtract(desconto);
-
-        valorTotal = valorTotal.add(valorUnitario);
-
-        txtValorTotal.setText(GuiUtil.getMoedaFormatada(String.valueOf(valorTotal)));
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -646,6 +647,25 @@ public class FrmVenda extends javax.swing.JFrame implements IForm {
      */
     private Boolean validarEstoqueDoProduto(int qtde, Produto produto) {
         Boolean temEstoque = true;
+        
+        Set<String> keys = mapEstoque.keySet();
+        
+        Boolean contem = keys.contains(produto.getCodigoBarras());
+        Map<Integer, Integer> mapQtde= new HashMap<>();
+        
+        if(contem){
+            mapQtde = mapEstoque.get(produto.getCodigoBarras());
+            int foiComprado = mapQtde.get(produto.getQuantidadeEstoque());
+            int estoque = produto.getQuantidadeEstoque();
+            mapQtde.put(estoque, mapQtde.get(estoque)+qtde);
+            mapEstoque.put(produto.getCodigoBarras(),mapQtde);
+            qtde+=foiComprado;
+            
+            
+        } else {
+            mapQtde.put(produto.getQuantidadeEstoque(), qtde);
+            mapEstoque.put(produto.getCodigoBarras(), mapQtde);
+        }
 
         if (qtde > produto.getQuantidadeEstoque()) {
             temEstoque = false;
@@ -683,11 +703,17 @@ public class FrmVenda extends javax.swing.JFrame implements IForm {
         //Nao ha estoque disponivel?
         if (!validarEstoqueDoProduto(Integer.valueOf(txtQuantidade.getText()), produto)) {
             JOptionPane.showMessageDialog(null, produto.getDescricao() + "\n"
-                    + produto.getQuantidadeEstoque()
+                    + "Estoque do Produto: " + produto.getQuantidadeEstoque()
                     + "\nProduto com estoque inferior a quantidade desejada!", "Erro", JOptionPane.ERROR_MESSAGE);
             txtCodigoDeBarras.requestFocus();
             txtCodigoDeBarras.setText("");
             txtCodigoDeBarras.selectAll();
+            
+            Map<Integer, Integer> mapProduto = new HashMap<>();
+            mapProduto=mapEstoque.get(produto.getCodigoBarras());
+            mapProduto.put(produto.getQuantidadeEstoque(), mapProduto.get(produto.getQuantidadeEstoque())-(Integer.valueOf(txtQuantidade.getText())));
+            mapEstoque.put(produto.getCodigoBarras(), mapProduto);
+            
             return;
         }
 
@@ -836,6 +862,7 @@ public class FrmVenda extends javax.swing.JFrame implements IForm {
         valorTotal = new BigDecimal(GuiUtil.getMoedaSemFormatacao("0.00"));
         txtQuantidade.setText("1");
         txtQuantidade.requestFocus();
+        mapEstoque.clear();
 
         itens.clear();
         pedido.setItens(itens);
@@ -914,7 +941,11 @@ public class FrmVenda extends javax.swing.JFrame implements IForm {
             if (tabelaPedidos.getRowCount() == 1) {
                 ((PedidoTableModel) tabelaPedidos.getModel()).removeRow(tabelaPedidos.getSelectedRow());
                 limparComponentes();
+                pedido.getItens().clear();
+                itens.clear();
                 txtValorTotal.setText(GuiUtil.getMoedaFormatada("0.00"));
+                mapEstoque.clear();
+                
             } else {
 
                 //Atualizando o valor total do campo total
@@ -925,6 +956,17 @@ public class FrmVenda extends javax.swing.JFrame implements IForm {
                 valorTotal = tempValorTotal;
                 txtValorTotal.setText(GuiUtil.getMoedaFormatada(String.valueOf(tempValorTotal)));
 
+                //removendo a quantidade do MapEstoque
+                Produto temp = new Produto();
+                temp.setCodigoBarras(String.valueOf(tabelaPedidos.getValueAt(tabelaPedidos.getSelectedRow(), 1)));
+                temp = repositoryDao.findProdutoByCodigoBarras(temp);
+                int qtde = ((Integer)tabelaPedidos.getValueAt(tabelaPedidos.getSelectedRow(), 0));
+                
+                Map<Integer, Integer> mapProduto = new HashMap<>();
+                mapProduto = mapEstoque.get(temp.getCodigoBarras());
+                mapProduto.put(temp.getQuantidadeEstoque(), mapProduto.get(temp.getQuantidadeEstoque())-qtde);
+                mapEstoque.put(temp.getCodigoBarras(), mapProduto);
+                
                 //remover a linha clicada
                 ((PedidoTableModel) tabelaPedidos.getModel()).removeRow(tabelaPedidos.getSelectedRow());
 
@@ -950,11 +992,15 @@ public class FrmVenda extends javax.swing.JFrame implements IForm {
                     item.setDesconto((BigDecimal) tabelaPedidos.getValueAt(i, 3));
                     listaItens.add(item);
 
+                   
                 }
 
+                itens.clear();
                 itens = listaItens;
 
+                pedido.getItens().clear();
                 pedido.setItens(itens);
+                
                 preencherTabelas();
             }
         } else {

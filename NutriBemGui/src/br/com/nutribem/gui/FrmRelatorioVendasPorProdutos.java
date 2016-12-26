@@ -29,13 +29,13 @@ import javax.swing.table.TableRowSorter;
  *
  * @author PauLinHo
  */
-public class FrmRelatorioCaixas extends javax.swing.JFrame {
+public class FrmRelatorioVendasPorProdutos extends javax.swing.JFrame {
 
     private List<EntidadeDominio> caixas;
     private CaixaLoja caixa;
     private RepositoryDao repositoryDao;
 
-    public FrmRelatorioCaixas(JFrame jFrame, boolean b) {
+    public FrmRelatorioVendasPorProdutos(JFrame jFrame, boolean b) {
 
         caixa = new CaixaLoja();
         repositoryDao = new RepositoryDao();
@@ -85,7 +85,7 @@ public class FrmRelatorioCaixas extends javax.swing.JFrame {
         
     }
 
-    public void atualizarTxtTotal(Integer valor) {
+    private void atualizarTxtTotal(Integer valor) {
 
         txtTotal.setText(String.valueOf(valor));
     }

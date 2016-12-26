@@ -90,10 +90,10 @@ public class FrmVenda extends javax.swing.JFrame implements IForm {
         SessionUtil sessionUtil = SessionUtil.getInstance();
 
         sessionUtil.getCaixaFuncionario().setData(DataUtil.pegarDataAtualDoSistema());
-        sessionUtil.getCaixaFuncionario().setIdentificao("FECHAMENTO");
+        sessionUtil.getCaixaFuncionario().setIdentificacao("FECHAMENTO");
 
         sessionUtil.getCaixaLoja().setData(DataUtil.pegarDataAtualDoSistema());
-        sessionUtil.getCaixaLoja().setIdentificao("FECHAMENTO");
+        sessionUtil.getCaixaLoja().setIdentificacao("FECHAMENTO");
 
         List<CaixaFuncionario> caixas = new ArrayList<CaixaFuncionario>();
         caixas.add(sessionUtil.getCaixaFuncionario());
@@ -144,7 +144,7 @@ public class FrmVenda extends javax.swing.JFrame implements IForm {
         }
 
         sessionUtil.getCaixaFuncionario().setColaborador(SessionUtil.getInstance().getColaborador());
-        sessionUtil.getCaixaFuncionario().setIdentificao("ABERTURA");
+        sessionUtil.getCaixaFuncionario().setIdentificacao("ABERTURA");
         sessionUtil.getCaixaFuncionario().setData(DataUtil.pegarDataAtualDoSistema());
 
         //SALVANDO A ABERTURA DE CAIXA DO FUNCIONARIO
@@ -153,7 +153,7 @@ public class FrmVenda extends javax.swing.JFrame implements IForm {
 
         //PEGANDO OS ULTIMOS DADOS DO CAIXA DA LOJA
         sessionUtil.getCaixaLoja().setData(DataUtil.pegarDataAtualDoSistema());
-        sessionUtil.getCaixaLoja().setIdentificao("ABERTURA");
+        sessionUtil.getCaixaLoja().setIdentificacao("ABERTURA");
 
         //SALVANDO A ABERTURA DE CAIXA DA LOJA
         fachada.save(sessionUtil.getCaixaLoja());

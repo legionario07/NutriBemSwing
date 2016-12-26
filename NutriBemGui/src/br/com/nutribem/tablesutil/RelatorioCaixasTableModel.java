@@ -78,7 +78,7 @@ public class RelatorioCaixasTableModel extends TabelaModelo {
             case 2:
                 return obj.getValor();
             case 3:
-                return obj.getIdentificao();
+                return obj.getIdentificacao();
             case 4:
                 return obj.getRetiradas().size();
             case 5:

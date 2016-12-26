@@ -1,32 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.2.0.final using JasperReports Library version 6.2.0  -->
-<!-- 2016-12-26T21:19:45 -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="PedidosByData" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="561964a1-40c4-4203-aca0-06048a7296ca">
+<!-- 2016-12-25T11:13:10 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="AllVendaLista" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="561964a1-40c4-4203-aca0-06048a7296ca">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Sample DB"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter (2)"/>
 	<queryString>
-		<![CDATA[SELECT caixa_funcionario.id, caixa_funcionario.data, caixa_funcionario.valor, caixa_funcionario.identificacao,
-colaborador.nome
- FROM caixa_funcionario
-inner join colaborador on colaborador.id = caixa_funcionario.colaborador_id
-]]>
+		<![CDATA[]]>
 	</queryString>
-	<field name="id" class="java.lang.Long">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="data" class="java.sql.Timestamp">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="valor" class="java.math.BigDecimal">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="identificacao" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="nome" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<variable name="total_registros" class="java.lang.Long" calculation="Count">
+	<field name="id" class="java.lang.Long"/>
+	<field name="identificacao" class="java.lang.String"/>
+	<field name="data" class="java.util.Date"/>
+	<field name="valor" class="java.math.BigDecimal"/>
+	<variable name="total_registros" class="java.lang.Integer" calculation="Count">
 		<variableExpression><![CDATA[$F{id}]]></variableExpression>
 	</variable>
 	<background>
@@ -77,20 +62,7 @@ inner join colaborador on colaborador.id = caixa_funcionario.colaborador_id
 		<band height="30" splitType="Stretch">
 			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 			<staticText>
-				<reportElement mode="Opaque" x="610" y="0" width="192" height="30" backcolor="#B5F7CA" uuid="06af066a-a7cf-488b-aef8-d71d363f4f9a"/>
-				<box>
-					<topPen lineWidth="1.5" lineStyle="Solid"/>
-					<leftPen lineWidth="1.5" lineStyle="Solid"/>
-					<bottomPen lineWidth="1.5" lineStyle="Solid"/>
-					<rightPen lineWidth="1.5" lineStyle="Solid"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[Funcionario]]></text>
-			</staticText>
-			<staticText>
-				<reportElement mode="Opaque" x="0" y="0" width="90" height="30" backcolor="#B5F7CA" uuid="9be851cf-00fd-45f2-9f32-b02c750d1f4b">
+				<reportElement mode="Opaque" x="0" y="0" width="120" height="30" backcolor="#B5F7CA" uuid="9be851cf-00fd-45f2-9f32-b02c750d1f4b">
 					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
 				</reportElement>
 				<box>
@@ -105,7 +77,7 @@ inner join colaborador on colaborador.id = caixa_funcionario.colaborador_id
 				<text><![CDATA[ID]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="90" y="0" width="180" height="30" backcolor="#B5F7CA" uuid="8ecf489d-8c1a-4e73-bdc9-b2bb789316ef">
+				<reportElement mode="Opaque" x="120" y="0" width="200" height="30" backcolor="#B5F7CA" uuid="8ecf489d-8c1a-4e73-bdc9-b2bb789316ef">
 					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
 				</reportElement>
@@ -121,7 +93,7 @@ inner join colaborador on colaborador.id = caixa_funcionario.colaborador_id
 				<text><![CDATA[Data]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="270" y="0" width="160" height="30" backcolor="#B5F7CA" uuid="0e2af179-32ba-438d-9f17-68cbdb2f8682">
+				<reportElement mode="Opaque" x="320" y="0" width="200" height="30" backcolor="#B5F7CA" uuid="0e2af179-32ba-438d-9f17-68cbdb2f8682">
 					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
 				</reportElement>
 				<box>
@@ -136,7 +108,7 @@ inner join colaborador on colaborador.id = caixa_funcionario.colaborador_id
 				<text><![CDATA[Valor]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="430" y="0" width="180" height="30" backcolor="#B5F7CA" uuid="c6d546d9-5842-4639-95ef-b75818f2b5f4">
+				<reportElement mode="Opaque" x="520" y="0" width="280" height="30" backcolor="#B5F7CA" uuid="c6d546d9-5842-4639-95ef-b75818f2b5f4">
 					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
 				</reportElement>
@@ -157,65 +129,59 @@ inner join colaborador on colaborador.id = caixa_funcionario.colaborador_id
 		<band height="30" splitType="Stretch">
 			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 			<textField isBlankWhenNull="true">
-				<reportElement x="0" y="0" width="90" height="30" uuid="8f96e3d6-dbe7-4f9d-a4ce-cba7d98fa7cc">
+				<reportElement x="0" y="0" width="120" height="30" uuid="1e95aa5d-922c-4eeb-8721-63677c5ccd54">
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
 				</reportElement>
 				<box>
-					<topPen lineWidth="1.0"/>
-					<leftPen lineWidth="1.0"/>
-					<bottomPen lineWidth="1.0"/>
-					<rightPen lineWidth="1.0"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd/MM/yyyy HH:mm:ss" isBlankWhenNull="true">
-				<reportElement x="90" y="0" width="180" height="30" uuid="14300130-f8c6-4005-8704-db8b32d8a50f"/>
+				<reportElement x="120" y="0" width="200" height="30" uuid="fc468830-d6f8-4f42-822b-7c252291968a">
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+				</reportElement>
 				<box>
-					<topPen lineWidth="1.0"/>
-					<leftPen lineWidth="1.0"/>
-					<bottomPen lineWidth="1.0"/>
-					<rightPen lineWidth="1.0"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{data}]]></textFieldExpression>
 			</textField>
 			<textField pattern="¤#,##0.##;¤-#,##0.##" isBlankWhenNull="true">
-				<reportElement x="270" y="0" width="160" height="30" uuid="22fc1202-de8b-4dc0-89f4-23ce4346c826"/>
+				<reportElement x="320" y="0" width="200" height="30" uuid="c6b5523f-74e6-4196-808b-470d98507b1b">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+				</reportElement>
 				<box>
-					<topPen lineWidth="1.0"/>
-					<leftPen lineWidth="1.0"/>
-					<bottomPen lineWidth="1.0"/>
-					<rightPen lineWidth="1.0"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{valor}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="430" y="0" width="180" height="30" uuid="95e2c8bb-2992-4707-b267-da5d5c581d40">
+				<reportElement x="520" y="0" width="280" height="30" uuid="d9bf5676-8a2c-466b-bf5e-d404da66e460">
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
 				</reportElement>
 				<box>
-					<topPen lineWidth="1.0"/>
-					<leftPen lineWidth="1.0"/>
-					<bottomPen lineWidth="1.0"/>
-					<rightPen lineWidth="1.0"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{identificacao}]]></textFieldExpression>
-			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement x="610" y="0" width="192" height="30" uuid="1f5247ff-aaef-4bdd-804e-9e83f36d01b2">
-					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
-				</reportElement>
-				<box>
-					<topPen lineWidth="1.0"/>
-					<leftPen lineWidth="1.0"/>
-					<bottomPen lineWidth="1.0"/>
-					<rightPen lineWidth="1.0"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
@@ -264,11 +230,11 @@ inner join colaborador on colaborador.id = caixa_funcionario.colaborador_id
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="662" y="5" width="140" height="20" uuid="0d8893ae-662c-4d06-829f-c2014f0d09fe">
+				<reportElement x="662" y="5" width="140" height="20" uuid="a164c73c-ff53-4ab9-b000-c5cd333590e0">
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
 				</reportElement>
-				<textFieldExpression><![CDATA["Total de Registros: " + $V{REPORT_COUNT}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Total de Registros: " + $V{total_registros}]]></textFieldExpression>
 			</textField>
 		</band>
 	</summary>

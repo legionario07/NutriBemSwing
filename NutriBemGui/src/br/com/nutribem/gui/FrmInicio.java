@@ -6,9 +6,7 @@
 package br.com.nutribem.gui;
 
 import br.com.nutribem.dao.RepositoryDao;
-import br.com.nutribem.fachada.Fachada;
 import br.com.nutribem.gui.util.SessionUtil;
-import br.com.nutribem.utils.DataUtil;
 import javax.swing.JDialog;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
@@ -26,7 +24,6 @@ public class FrmInicio extends javax.swing.JFrame {
         repositoryDao = new RepositoryDao();
 
         verificarPermissao();
-        
 
     }
 
@@ -67,8 +64,9 @@ public class FrmInicio extends javax.swing.JFrame {
         menuBarPDV = new javax.swing.JMenu();
         menuPDV = new javax.swing.JMenuItem();
         menuRelatorio = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        menuVendas = new javax.swing.JMenuItem();
+        menuVendasPorProduto = new javax.swing.JMenuItem();
+        menuCaixas = new javax.swing.JMenuItem();
         MenuLojaBar = new javax.swing.JMenu();
         menuLoja = new javax.swing.JMenuItem();
 
@@ -149,21 +147,29 @@ public class FrmInicio extends javax.swing.JFrame {
 
         menuRelatorio.setText("Relatórios");
 
-        jMenuItem1.setText("Vendas");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        menuVendas.setText("Vendas");
+        menuVendas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                menuVendasActionPerformed(evt);
             }
         });
-        menuRelatorio.add(jMenuItem1);
+        menuRelatorio.add(menuVendas);
 
-        jMenuItem2.setText("Caixas");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+        menuVendasPorProduto.setText("Vendas Por Produto");
+        menuVendasPorProduto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
+                menuVendasPorProdutoActionPerformed(evt);
             }
         });
-        menuRelatorio.add(jMenuItem2);
+        menuRelatorio.add(menuVendasPorProduto);
+
+        menuCaixas.setText("Caixas");
+        menuCaixas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuCaixasActionPerformed(evt);
+            }
+        });
+        menuRelatorio.add(menuCaixas);
 
         barMenu.add(menuRelatorio);
 
@@ -245,7 +251,7 @@ public class FrmInicio extends javax.swing.JFrame {
             if (option == JOptionPane.CANCEL_OPTION) {
                 this.setDefaultCloseOperation(JInternalFrame.DO_NOTHING_ON_CLOSE);
             } else {
-                
+
                 this.dispose();
             }
 
@@ -284,20 +290,28 @@ public class FrmInicio extends javax.swing.JFrame {
         frmVenda.setVisible(true);
     }//GEN-LAST:event_menuPDVActionPerformed
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void menuVendasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuVendasActionPerformed
         FrmRelatorioVendas frmRelatorioVendas = new FrmRelatorioVendas(this, true);
         frmRelatorioVendas.setLocationRelativeTo(null);
         frmRelatorioVendas.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         frmRelatorioVendas.setVisible(true);
-        
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+    }//GEN-LAST:event_menuVendasActionPerformed
+
+    private void menuCaixasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCaixasActionPerformed
         FrmRelatorioCaixas frmRelatorioCaixas = new FrmRelatorioCaixas(this, true);
         frmRelatorioCaixas.setLocationRelativeTo(null);
+        frmRelatorioCaixas.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         frmRelatorioCaixas.setVisible(true);
-        
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    }//GEN-LAST:event_menuCaixasActionPerformed
+
+    private void menuVendasPorProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuVendasPorProdutoActionPerformed
+        FrmRelatorioVendasPorProdutos frmRelatorioVendasPorProdutos = new FrmRelatorioVendasPorProdutos(this, true);
+        frmRelatorioVendasPorProdutos.setLocationRelativeTo(null);
+        frmRelatorioVendasPorProdutos.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        frmRelatorioVendasPorProdutos.setVisible(true);
+    }//GEN-LAST:event_menuVendasPorProdutoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -349,9 +363,8 @@ public class FrmInicio extends javax.swing.JFrame {
     private javax.swing.JMenu MenuLojaBar;
     private javax.swing.JMenu barCadastros;
     private javax.swing.JMenuBar barMenu;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenu menuBarPDV;
+    private javax.swing.JMenuItem menuCaixas;
     private javax.swing.JMenuItem menuCategoria;
     private javax.swing.JMenuItem menuColaborador;
     private javax.swing.JMenuItem menuFormasDePagamentos;
@@ -361,5 +374,7 @@ public class FrmInicio extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuProduto;
     private javax.swing.JMenu menuRelatorio;
     private javax.swing.JMenuItem menuUnidadeDeMedida;
+    private javax.swing.JMenuItem menuVendas;
+    private javax.swing.JMenuItem menuVendasPorProduto;
     // End of variables declaration//GEN-END:variables
 }

@@ -31,17 +31,14 @@ public class FrmRelatorioVendas extends javax.swing.JFrame {
     private List<EntidadeDominio> pagamentos;
     private Pagamento pagamento;
     private RepositoryDao repositoryDao;
-    
 
     public FrmRelatorioVendas(JFrame jFrame, boolean b) {
-        
+
         pagamento = new Pagamento();
         repositoryDao = new RepositoryDao();
         pagamentos = new ArrayList<EntidadeDominio>();
         pagamentos = repositoryDao.findAll(new Pagamento());
-        
-       
-        
+
         initComponents();
 
         inicializarCampoPesquisa();
@@ -54,16 +51,19 @@ public class FrmRelatorioVendas extends javax.swing.JFrame {
             @Override
             public void insertUpdate(DocumentEvent e) {
                 TableUtil.filterTable((TableRowSorter<CategoriaTableModel>) tabelaRelatorioVendas.getRowSorter(), txtLocaliza.getText());
+                atualizarTxtTotal(tabelaRelatorioVendas.getRowCount());
             }
 
             @Override
             public void removeUpdate(DocumentEvent e) {
                 TableUtil.filterTable((TableRowSorter<CategoriaTableModel>) tabelaRelatorioVendas.getRowSorter(), txtLocaliza.getText());
+                atualizarTxtTotal(tabelaRelatorioVendas.getRowCount());
             }
 
             @Override
             public void changedUpdate(DocumentEvent e) {
                 TableUtil.filterTable((TableRowSorter<CategoriaTableModel>) tabelaRelatorioVendas.getRowSorter(), txtLocaliza.getText());
+                atualizarTxtTotal(tabelaRelatorioVendas.getRowCount());
             }
         });
     }
@@ -76,10 +76,14 @@ public class FrmRelatorioVendas extends javax.swing.JFrame {
         TableRowSorter<RelatorioPagamentosTableModel> sorter = new TableRowSorter<RelatorioPagamentosTableModel>(relatorioPagamentosTableModel);
         tabelaRelatorioVendas.setRowSorter(sorter);
 
-        txtTotal.setText(String.valueOf(pagamentos.size()));
-        
+       atualizarTxtTotal(tabelaRelatorioVendas.getRowCount());
+
     }
 
+     public void atualizarTxtTotal(Integer valor) {
+
+        txtTotal.setText(String.valueOf(valor));
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -214,6 +218,7 @@ public class FrmRelatorioVendas extends javax.swing.JFrame {
 
     }//GEN-LAST:event_tabelaRelatorioVendasMouseClicked
 
+
     private void txtLocalizaInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_txtLocalizaInputMethodTextChanged
         // TODO add your handling code here:
     }//GEN-LAST:event_txtLocalizaInputMethodTextChanged
@@ -224,7 +229,9 @@ public class FrmRelatorioVendas extends javax.swing.JFrame {
 
     private void btnExportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportarActionPerformed
         // TODO add your handling code here:
+
         File jasper = new File(getClass().getResource("/relatorios/pedidos/AllPedidos.jasper").getFile());
+
         GeraRelatorio.exportarGUIPDF(new HashMap<String, Object>(), jasper);
     }//GEN-LAST:event_btnExportarActionPerformed
 
